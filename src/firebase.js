@@ -1,3 +1,9 @@
+/*
+    notes:
+    * change db rules: https://console.firebase.google.com/u/0/project/jj-todo-app/firestore/rules
+    * if you get the ['DEFAULT'] firebase error, try restarting npm run start
+ */
+
 import firebase from 'firebase';
 
 const firebaseApp = firebase.initializeApp({

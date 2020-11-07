@@ -1,0 +1,23 @@
+# safelist
+branches:
+  only:
+  - $MAIN_BRANCH
+  - master
+  - main
+
+# build
+language: node_js
+node_js:
+  # - "12.18.3"
+  - "stable"
+cache:
+  directories:
+    - node_modules
+script:
+  - npm ci
+  # - npm test
+  - npm run build
+install:
+  - npm install -g firebase-tools
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
