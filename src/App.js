@@ -1,19 +1,32 @@
 import './App.css';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Button } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import TodoList from "./TodoList/TodoList";
+import db from "./firebase";
 
 function App() {
     // states -> update live on the page
     const [
         todos, // state variable
         setTodos // state variable setter
-    ] = useState(['walk dog', 'eat lunch', 'procure goods']); // start as an empty array
+    ] = useState([]); // start as an empty array
     const [input, setInput] = useState('');
     console.log(input);
+    /*
+        when the app loads, listen to the DB (firestore)
+        and fetch new todos as they get added/removed
+     */
+    // hook that runs on app startup
+    useEffect(() => {
+        // run this on app start
+        db.collection('todos').onSnapshot(snapshot => {
+            console.log(snapshot.docs.map(doc => doc.data().taskName))
+            setTodos(snapshot.docs.map(doc => doc.data().taskName))
+        })
+    }, []);
 
     const addTodo = (event) =>{
         // this fires when we click the button
