@@ -1,5 +1,9 @@
 import './App.css';
 import React, {useState} from "react";
+import { Button } from '@material-ui/core';
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
 
 function App() {
     // states -> update live on the page
@@ -23,8 +27,23 @@ function App() {
       <h1>hi good day</h1>
 
         <form action="">
-            <input value={input} onChange={event => setInput(event.target.value)} />
-            <button type={"submit"} onClick={addTodo}>add to do</button>
+            <FormControl>
+                <InputLabel>Write a To-Do</InputLabel>
+                <Input
+                    value={input}
+                    onChange={event => setInput(event.target.value)}
+                />
+            </FormControl>
+
+            <Button
+                variant={"contained"}
+                color={"primary"}
+                type={"submit"}
+                onClick={addTodo}
+                disabled={!input} // disable btn if text field is empty
+            >
+                Add To-Do
+            </Button>
         </form>
 
         <ul>
