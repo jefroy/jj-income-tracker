@@ -3,7 +3,6 @@ import './TodoList.css';
 import {List} from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Button from "@material-ui/core/Button";
 import db from '../firebase';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -76,7 +75,6 @@ function TodoList(props) {
 
         <List className={"todo__list"}>
             <ListItem>
-                {/*<ListItemAvatar  children={"hi"}/>*/}
                 <ListItemText
                     primary={props.taskName}
                     secondary={ // use ternary operator to sync with db ;)
