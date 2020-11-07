@@ -52,25 +52,27 @@ function App() {
     <div className="app">
       <h1>😊 Task Manager 😊</h1>
 
-        <form action="">
-            <FormControl>
-                <InputLabel>Write a To-Do</InputLabel>
-                <Input
-                    value={input}
-                    onChange={event => setInput(event.target.value)}
-                />
-            </FormControl>
+        <div className={"app__form"}>
+            <form>
+                <FormControl>
+                    <InputLabel>Write a To-Do</InputLabel>
+                    <Input
+                        value={input}
+                        onChange={event => setInput(event.target.value)}
+                    />
+                </FormControl>
 
-            <Button
-                variant={"contained"}
-                color={"primary"}
-                type={"submit"}
-                onClick={addTodo}
-                disabled={!input} // disable btn if text field is empty
-            >
-                Add To-Do
-            </Button>
-        </form>
+                <Button
+                    variant={"contained"}
+                    color={"primary"}
+                    type={"submit"}
+                    onClick={addTodo}
+                    disabled={!input} // disable btn if text field is empty
+                >
+                    Add To-Do
+                </Button>
+            </form>
+        </div>
 
         <div className={"app__todoList"}>
             <h2>Current Tasks</h2>

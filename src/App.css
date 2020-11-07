@@ -1,6 +1,5 @@
 /* override browser default */
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
 }
@@ -11,15 +10,12 @@ body {
   width: 100vw;
 }
 
-/* include border and padding in element width and height */
+/* include border and padding in element width and height important check */
 * {
   box-sizing: border-box;
 }
 
 .app{
-  /*background-color: grey;*/
-  /*height: 100vh;*/
-
   position:absolute;
   top:0;
   right:0;
@@ -42,10 +38,16 @@ body {
   /*hide scrollbar on id, edge, and firefox*/
   -ms-overflow-style: none;
   scrollbar-width: none;
+  display: flex;
+}
+
+.app__form{
+  display: flex;
+  flex-direction: column;
+  /*flex: 1;*/
 }
 
 .app__todoList{
-  /*text-align: center;*/
-  /*justify-content: center;*/
-  /*padding: 10px;*/
+  display: flex;
+  flex-direction: column;
 }
