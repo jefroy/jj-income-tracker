@@ -1,4 +1,6 @@
 /* your css code */
-.todo__list{
-
+.todoList{
+    text-align: center;
+    justify-content: center;
+    padding: 10px;
 }

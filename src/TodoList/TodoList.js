@@ -75,7 +75,7 @@ function TodoList(props) {
 
         <List className={"todo__list"}>
             <ListItem>
-                <ListItemText
+                <ListItemText className="todoList"
                     primary={props.taskName}
                     secondary={ // use ternary operator to sync with db ;)
                         props.taskCreatedDate ?
