@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
+import TodoList from "./TodoList/TodoList";
 
 function App() {
     // states -> update live on the page
@@ -48,7 +49,7 @@ function App() {
 
         <ul>
             {todos.map(todo => (
-                <li>{todo}</li>
+                <TodoList taskName={todo}/>
             ))}
         </ul>
 
