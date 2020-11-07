@@ -72,16 +72,19 @@ function App() {
             </Button>
         </form>
 
-        <ul>
-            {todos.map(todo => (
-                <TodoList
-                    key={todo.id}
-                    id={todo.id}
-                    taskName={todo.data.taskName}
-                    taskCreatedDate={todo.data.timestamp}
-                />
-            ))}
-        </ul>
+        <div className={"app__todoList"}>
+            <h2>Current Tasks</h2>
+            <ul>
+                {todos.map(todo => (
+                    <TodoList
+                        key={todo.id}
+                        id={todo.id}
+                        taskName={todo.data.taskName}
+                        taskCreatedDate={todo.data.timestamp}
+                    />
+                ))}
+            </ul>
+        </div>
 
     </div>
   );
