@@ -24,14 +24,14 @@ function App() {
     useEffect(() => {
         // run this on app start
         db.collection('todos').orderBy('timestamp', "desc").onSnapshot(snapshot => {
-            console.log('db todos: ', snapshot.docs.map(doc => doc.data()));
+            // console.log('db todos: ', snapshot.docs.map(doc => doc.data()));
             setTodos(
                 snapshot.docs.map(doc => ({
                     id: doc.id,
                     data: doc.data()
                 }))
             );
-            console.log('our todos: ', todos);
+            // console.log('our todos: ', todos);
         })
     }, []);
 
@@ -49,7 +49,7 @@ function App() {
     }
 
   return (
-    <div className="App">
+    <div className="app">
       <h1>hi good day</h1>
 
         <form action="">

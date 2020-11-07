@@ -52,7 +52,7 @@ function TodoList(props) {
 
     const classes = useStyles();
     return (
-    <div className="TodoList">
+    <div className="todoList">
 
         <> {/* <> is a react fragment */}
         <Modal
