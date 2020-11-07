@@ -24,9 +24,9 @@ function App() {
     useEffect(() => {
         // run this on app start
         db.collection('todos').orderBy('timestamp', "desc").onSnapshot(snapshot => {
-            console.log('db todos: ', snapshot.docs.map(doc => doc.data()));
+            // console.log('db todos: ', snapshot.docs.map(doc => doc.data()));
             setTodos(snapshot.docs.map(doc => doc.data()));
-            console.log('our todos: ', todos);
+            // console.log('our todos: ', todos);
         })
     }, []);
 

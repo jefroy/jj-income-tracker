@@ -6,7 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 
 function TodoList(props) {
-    console.log('props: ', props);
+    // console.log('props: ', props);
     return (
     <div className="TodoList">
 
