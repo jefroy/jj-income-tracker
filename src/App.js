@@ -24,9 +24,14 @@ function App() {
     useEffect(() => {
         // run this on app start
         db.collection('todos').orderBy('timestamp', "desc").onSnapshot(snapshot => {
-            // console.log('db todos: ', snapshot.docs.map(doc => doc.data()));
-            setTodos(snapshot.docs.map(doc => doc.data()));
-            // console.log('our todos: ', todos);
+            console.log('db todos: ', snapshot.docs.map(doc => doc.data()));
+            setTodos(
+                snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data()
+                }))
+            );
+            console.log('our todos: ', todos);
         })
     }, []);
 
@@ -70,8 +75,10 @@ function App() {
         <ul>
             {todos.map(todo => (
                 <TodoList
-                    taskName={todo.taskName}
-                    taskCreatedDate={todo.timestamp}
+                    key={todo.id}
+                    id={todo.id}
+                    taskName={todo.data.taskName}
+                    taskCreatedDate={todo.data.timestamp}
                 />
             ))}
         </ul>
