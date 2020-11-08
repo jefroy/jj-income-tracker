@@ -12,7 +12,7 @@ body {
 
 /* include border and padding in element width and height important check */
 * {
-  box-sizing: border-box;
+  /*box-sizing: border-box;*/
 }
 
 .app{
@@ -26,11 +26,7 @@ body {
   width: 100%;
 
   /* example padding, font-size, background, etc */
-  /*padding: 10px;*/
-  /*font-size: 20px;*/
   background-color: lightskyblue;
-  justify-content: center;
-  text-align: center;
 
   /*important*/
   overflow: scroll;
@@ -38,16 +34,43 @@ body {
   /*hide scrollbar on id, edge, and firefox*/
   -ms-overflow-style: none;
   scrollbar-width: none;
-  display: flex;
+}
+
+.app > h1, .app__form{
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
 }
 
 .app__form{
   display: flex;
-  flex-direction: column;
-  /*flex: 1;*/
+}
+.app__form__FormControl, .app__form__Button{
+  flex: 0.12;
 }
 
 .app__todoList{
   display: flex;
-  flex-direction: column;
+}
+
+.tasks__card{
+  flex: 1;
+}
+
+.tasks__card > h2{
+  justify-content: center;
+  text-align: center;
+}
+
+hr{
+  border-color: black;
+}
+
+/* media query stuff */
+/* small screen */
+@media (max-width: 800px) {
+  .app__form__FormControl, .app__form__Button{
+    display: block;
+    flex: 1;
+  }
 }

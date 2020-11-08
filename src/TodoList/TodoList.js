@@ -76,10 +76,10 @@ function TodoList(props) {
         <List className={"todo__list"}>
             <ListItem>
                 <ListItemText className="todoList"
-                    primary={props.taskName}
+                    primary={props.taskName.substr(0, 20) }
                     secondary={ // use ternary operator to sync with db ;)
                         props.taskCreatedDate ?
-                            "✅Created: " + props.taskCreatedDate.toDate().toString().substr(0, 15) :
+                            "Created: " + props.taskCreatedDate.toDate().toString().substr(0, 15) :
                             "❌Could not fetch date 😢"
                     }
                 />

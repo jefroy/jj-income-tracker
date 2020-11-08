@@ -50,10 +50,9 @@ function App() {
 
   return (
     <div className="app">
-      <h1>😊 Task Manager 😊</h1>
-
-        <div className={"app__form"}>
-            <form>
+        <h1>😊 Task Manager 😊</h1>
+        <form className={"app__form"}>
+            <div className={"app__form__FormControl"}>
                 <FormControl>
                     <InputLabel>Write a To-Do</InputLabel>
                     <Input
@@ -61,7 +60,8 @@ function App() {
                         onChange={event => setInput(event.target.value)}
                     />
                 </FormControl>
-
+            </div>
+            <div className="app__form__Button">
                 <Button
                     variant={"contained"}
                     color={"primary"}
@@ -71,21 +71,40 @@ function App() {
                 >
                     Add To-Do
                 </Button>
-            </form>
-        </div>
+            </div>
+        </form>
 
         <div className={"app__todoList"}>
-            <h2>Current Tasks</h2>
-            <ul>
-                {todos.map(todo => (
-                    <TodoList
-                        key={todo.id}
-                        id={todo.id}
-                        taskName={todo.data.taskName}
-                        taskCreatedDate={todo.data.timestamp}
-                    />
-                ))}
-            </ul>
+            <div className="tasks__card">
+                <h2>Current</h2>
+                <hr/>
+                <ul>
+                    {todos.map(todo => (
+                        <TodoList
+                            key={todo.id}
+                            id={todo.id}
+                            taskName={todo.data.taskName}
+                            taskCreatedDate={todo.data.timestamp}
+                        />
+                    ))}
+                </ul>
+            </div>
+            <hr/>
+            <div className="tasks__card">
+                <h2>Completed</h2>
+                <hr/>
+                <ul>
+                    {todos.map(todo => (
+                        <TodoList
+                            key={todo.id}
+                            id={todo.id}
+                            taskName={todo.data.taskName}
+                            taskCreatedDate={todo.data.timestamp}
+                        />
+                    ))}
+                </ul>
+            </div>
+
         </div>
 
     </div>
