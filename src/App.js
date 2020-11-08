@@ -14,6 +14,7 @@ function App() {
         todos, // state variable
         setTodos // state variable setter
     ] = useState([]); // start as an empty array
+    const [completedTodos, setCompletedTodos] = useState([]);
     const [input, setInput] = useState('');
     // console.log(input);
     /*
@@ -26,6 +27,19 @@ function App() {
         db.collection('todos').orderBy('timestamp', "desc").onSnapshot(snapshot => {
             // console.log('db todos: ', snapshot.docs.map(doc => doc.data()));
             setTodos(
+                snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data()
+                }))
+            );
+            // console.log('our todos: ', todos);
+        })
+    }, []);
+    useEffect(() => {
+        // run this on app start
+        db.collection('todos').orderBy('completedDate', "desc").onSnapshot(snapshot => {
+            // console.log('db todos: ', snapshot.docs.map(doc => doc.data()));
+            setCompletedTodos(
                 snapshot.docs.map(doc => ({
                     id: doc.id,
                     data: doc.data()
@@ -80,6 +94,7 @@ function App() {
                 <hr/>
                 <ul>
                     {todos.map(todo => (
+                        !todo.data.completedDate &&
                         <TodoList
                             key={todo.id}
                             id={todo.id}
@@ -94,12 +109,14 @@ function App() {
                 <h2>Completed</h2>
                 <hr/>
                 <ul>
-                    {todos.map(todo => (
+                    {completedTodos.map(todo => (
+                        todo.data.completedDate &&
                         <TodoList
                             key={todo.id}
                             id={todo.id}
                             taskName={todo.data.taskName}
                             taskCreatedDate={todo.data.timestamp}
+                            taskCompletedDate={todo.data.completedDate}
                         />
                     ))}
                 </ul>

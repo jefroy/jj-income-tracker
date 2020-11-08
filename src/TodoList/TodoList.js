@@ -9,6 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Modal from "@material-ui/core/Modal";
 import EditIcon from '@material-ui/icons/Edit';
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import UndoIcon from '@material-ui/icons/Undo';
 import firebase from "firebase";
 
 function TodoList(props) {
@@ -33,6 +35,25 @@ function TodoList(props) {
         })
         handleClose();
     }
+    function completeTodo(){
+        // console.log('completeTodo: says hi')
+        // mark a task as completed and update the completed date
+        db.collection('todos').doc(props.id).set({
+            completedDate: firebase.firestore.FieldValue.serverTimestamp()
+        }, {
+            merge: true // prevent overriding existing data
+        })
+    }
+    function undoComplete(){
+        // console.log('completeTodo: says hi')
+        // mark a task as completed and update the completed date
+        db.collection('todos').doc(props.id).update({
+            completedDate: firebase.firestore.FieldValue.delete(),
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }, {
+            merge: true // prevent overriding existing data
+        })
+    }
 
     // styles hook https://www.positronx.io/create-react-modal-popup-with-material-ui/
     const useStyles = makeStyles(theme => ({
@@ -51,15 +72,26 @@ function TodoList(props) {
     }));
 
     const classes = useStyles();
+
+    function getDateFromProp() {
+        // console.log(props);
+        if (props.taskCompletedDate){
+            return "Completed on: " + props.taskCreatedDate.toDate().toString().substr(0, 15);
+        } else if (props.taskCreatedDate){
+            return "Created: " + props.taskCreatedDate.toDate().toString().substr(0, 15)
+        }
+        else{
+            return "❌Could not fetch date 😢";
+        }
+    }
+
     return (
     <div className="todoList">
-
         <> {/* <> is a react fragment */}
         <Modal
             className={classes.paper}
             open={open} // state to determine if the modal is open or not
             onClose={handleClose} // function to handle closing the modal
-            // children={}
         >
             <div>
                 <h1>Edit Task</h1>
@@ -75,17 +107,18 @@ function TodoList(props) {
 
         <List className={"todo__list"}>
             <ListItem>
-                <ListItemText className="todoList"
+                <ListItemText
+                    className="todoList"
                     primary={props.taskName.substr(0, 20) }
                     secondary={ // use ternary operator to sync with db ;)
-                        props.taskCreatedDate ?
-                            "Created: " + props.taskCreatedDate.toDate().toString().substr(0, 15) :
-                            "❌Could not fetch date 😢"
+                        getDateFromProp()
                     }
                 />
             </ListItem>
             <EditIcon type="button" onClick={event => handleOpen()}/>
             <DeleteIcon onClick={event => db.collection('todos').doc(props.id).delete()}/>
+            {!props.taskCompletedDate && <DoneOutlineIcon onClick={event => completeTodo()}/>}
+            {props.taskCompletedDate && <UndoIcon onClick={event => undoComplete()}/>}
         </List>
         </>
 
