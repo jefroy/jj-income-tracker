@@ -1,9 +1,9 @@
 # safelist
 branches:
   only:
-  - $MAIN_BRANCH
   - master
   - main
+  
 # build
 language: node_js
 node_js:
