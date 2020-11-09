@@ -8,6 +8,7 @@ import TodoList from "./TodoList/TodoList";
 import db from "./firebase";
 import firebase from "firebase";
 import Login from "./Login/Login";
+import { GoogleLogout } from 'react-google-login';
 
 function App() {
     // states -> update live on the page
@@ -63,68 +64,98 @@ function App() {
         setInput(''); // clear the input
     }
 
-  return (
+    const [user, setUser] = useState([]);
+    const getUser = ((childData) => {
+        setUser(childData);
+        // console.log(user, user.length, user.email);
+    });
+
+    function logError() {
+        // console.log('logout error');
+        return 'logout error';
+    }
+
+    function logout() {
+        // console.log('logged out :)');
+        // console.log(user);
+        setUser([]);
+        return 'logged out :)';
+    }
+
+    return (
     <div className="app">
-        <Login/>
-        <h1>😊 Task Manager 😊</h1>
-        <form className={"app__form"}>
-            <div className={"app__form__FormControl"}>
-                <FormControl>
-                    <InputLabel>Write a To-Do</InputLabel>
-                    <Input
-                        value={input}
-                        onChange={event => setInput(event.target.value)}
-                    />
-                </FormControl>
-            </div>
-            <div className="app__form__Button">
-                <Button
-                    variant={"contained"}
-                    color={"primary"}
-                    type={"submit"}
-                    onClick={addTodo}
-                    disabled={!input} // disable btn if text field is empty
-                >
-                    Add To-Do
-                </Button>
-            </div>
-        </form>
+        {user.googleId > 0 ? (
+            // if logged in, render app
+            <>
+            <GoogleLogout
+                clientId="235258480463-7emltov5gfotr9iiouka5d0bfshuu450.apps.googleusercontent.com"
+                buttonText="Logout"
+                onLogoutSuccess={logout}
+                onFailure={logError}
+            />
+                <h1>😊 Task Manager 😊</h1>
+                <form className={"app__form"}>
+                    <div className={"app__form__FormControl"}>
+                        <FormControl>
+                            <InputLabel>Write a To-Do</InputLabel>
+                            <Input
+                                value={input}
+                                onChange={event => setInput(event.target.value)}
+                            />
+                        </FormControl>
+                    </div>
+                    <div className="app__form__Button">
+                        <Button
+                            variant={"contained"}
+                            color={"primary"}
+                            type={"submit"}
+                            onClick={addTodo}
+                            disabled={!input} // disable btn if text field is empty
+                        >
+                            Add To-Do
+                        </Button>
+                    </div>
+                </form>
 
-        <div className={"app__todoList"}>
-            <div className="tasks__card">
-                <h2>Current</h2>
-                <hr/>
-                <ul>
-                    {todos.map(todo => (
-                        !todo.data.completedDate &&
-                        <TodoList
-                            key={todo.id}
-                            id={todo.id}
-                            taskName={todo.data.taskName}
-                            taskCreatedDate={todo.data.timestamp}
-                        />
-                    ))}
-                </ul>
-            </div>
-            <hr/>
-            <div className="tasks__card">
-                <h2>Completed</h2>
-                <hr/>
-                <ul>
-                    {completedTodos.map(todo => (
-                        todo.data.completedDate &&
-                        <TodoList
-                            key={todo.id}
-                            id={todo.id}
-                            taskName={todo.data.taskName}
-                            taskCreatedDate={todo.data.timestamp}
-                            taskCompletedDate={todo.data.completedDate}
-                        />
-                    ))}
-                </ul>
-            </div>
-
-        </div>
+                <div className={"app__todoList"}>
+                    <div className="tasks__card">
+                        <h2>Current</h2>
+                        <hr/>
+                        <ul>
+                            {todos.map(todo => (
+                                !todo.data.completedDate &&
+                                <TodoList
+                                    key={todo.id}
+                                    id={todo.id}
+                                    taskName={todo.data.taskName}
+                                    taskCreatedDate={todo.data.timestamp}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                    <hr/>
+                    <div className="tasks__card">
+                        <h2>Completed</h2>
+                        <hr/>
+                        <ul>
+                            {completedTodos.map(todo => (
+                                todo.data.completedDate &&
+                                <TodoList
+                                    key={todo.id}
+                                    id={todo.id}
+                                    taskName={todo.data.taskName}
+                                    taskCreatedDate={todo.data.timestamp}
+                                    taskCompletedDate={todo.data.completedDate}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </>
+        ) : (
+            <Login parentCallBack={getUser}/>
+        )}
+        {/*<p>ooo monsta: {user.email}</p>*/}
 
     </div>
   );
