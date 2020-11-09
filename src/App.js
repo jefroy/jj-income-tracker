@@ -7,6 +7,7 @@ import Input from "@material-ui/core/Input";
 import TodoList from "./TodoList/TodoList";
 import db from "./firebase";
 import firebase from "firebase";
+import Login from "./Login/Login";
 
 function App() {
     // states -> update live on the page
@@ -64,6 +65,7 @@ function App() {
 
   return (
     <div className="app">
+        <Login/>
         <h1>😊 Task Manager 😊</h1>
         <form className={"app__form"}>
             <div className={"app__form__FormControl"}>
