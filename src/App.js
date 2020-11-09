@@ -58,7 +58,8 @@ function App() {
         // add it to the db where collection = todos and append taskName: input
         db.collection('todos').add({
             taskName: input,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            userId: user.googleId
         });
         //setTodos([...todos, input]); // a spread - spread the stuff in the array, and append
         setInput(''); // clear the input
@@ -80,6 +81,20 @@ function App() {
         // console.log(user);
         setUser([]);
         return 'logged out :)';
+    }
+
+    function canPrintCurrentTaskList(todo, googleId) {
+        // to do = to do.data, googleId = user.googleId
+        if(googleId !== todo.userId){
+            return false;
+        } return !todo.completedDate;
+    }
+
+    function canPrintCompletedTaskList(todo, googleId) {
+        // to do = to do.data, googleId = user.googleId
+        if(googleId !== todo.userId){
+            return false;
+        } return todo.completedDate;
     }
 
     return (
@@ -123,12 +138,13 @@ function App() {
                         <hr/>
                         <ul>
                             {todos.map(todo => (
-                                !todo.data.completedDate &&
+                                canPrintCurrentTaskList(todo.data, user.googleId) &&
                                 <TodoList
                                     key={todo.id}
                                     id={todo.id}
                                     taskName={todo.data.taskName}
                                     taskCreatedDate={todo.data.timestamp}
+                                    userId={user.googleId}
                                 />
                             ))}
                         </ul>
@@ -139,13 +155,14 @@ function App() {
                         <hr/>
                         <ul>
                             {completedTodos.map(todo => (
-                                todo.data.completedDate &&
+                                canPrintCompletedTaskList(todo.data, user.googleId) &&
                                 <TodoList
                                     key={todo.id}
                                     id={todo.id}
                                     taskName={todo.data.taskName}
                                     taskCreatedDate={todo.data.timestamp}
                                     taskCompletedDate={todo.data.completedDate}
+                                    userId={user.googleId}
                                 />
                             ))}
                         </ul>

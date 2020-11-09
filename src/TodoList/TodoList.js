@@ -26,7 +26,7 @@ function TodoList(props) {
         setOpen(true);
     }
     function updateToDo(){
-        // update taskname with new text
+        // update task name with new text
         db.collection('todos').doc(props.id).set({
             taskName: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -52,7 +52,7 @@ function TodoList(props) {
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }, {
             merge: true // prevent overriding existing data
-        })
+        });
     }
 
     // styles hook https://www.positronx.io/create-react-modal-popup-with-material-ui/
