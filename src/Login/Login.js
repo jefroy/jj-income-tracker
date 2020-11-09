@@ -4,11 +4,11 @@ import './Login.css';
 
 function Login(props) {
 
-  let responseGoogle=(response)=>{
-    console.log(response);
-    console.log(response.profile);
-    console.log(response.profileObj);
-  }
+  // let responseGoogle=(response)=>{
+  //   console.log(response);
+  //   console.log(response.profile);
+  //   console.log(response.profileObj);
+  // }
   function getUserArray(userObj){
       let arr = [];
       // console.log(typeof userObj);
